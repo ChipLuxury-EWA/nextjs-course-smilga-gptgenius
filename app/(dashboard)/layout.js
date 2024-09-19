@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
         <label className="drawer-button lg:hidden fixed top-6 right-6 " htmlFor="my-drawer-3">
           <FaBarsStaggered className="text-primary w-8 h-8" />
         </label>
-        <div className="bg-base-200 px-8py-12 min-h-screen">{children}</div>
+        <div className="bg-base-200 px-8 py-12 min-h-screen">{children}</div>
       </div>
       <div className="drawer-side ">
         <label className="drawer-overlay" htmlFor="my-drawer-3" aria-label="Close sidebar "></label>
