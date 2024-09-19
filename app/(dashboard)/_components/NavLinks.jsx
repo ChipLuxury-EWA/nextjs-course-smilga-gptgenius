@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 const links = [
-  { label: "Profile", href: "/profile" },
-  { label: "Tours", href: "/tours" },
-  { label: "New tour", href: "/tours/new-tour" },
   { label: "Chat", href: "/chat" },
+  { label: "New tour", href: "/tours/new-tour" },
+  { label: "Tours", href: "/tours" },
+  { label: "Profile", href: "/profile" },
 ];
 
 const DynamicLinksList = () => {
