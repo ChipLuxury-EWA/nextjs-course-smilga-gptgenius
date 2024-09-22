@@ -1,25 +1,21 @@
-"use server"
+"use server";
 
-export const generateChatResponse = async (chatMessage) => {
-    console.log(chatMessage)
-    return "fooo"
-    const response = await fetch("https://api.openai.com/v1/completions", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        },
-        body: JSON.stringify({
-            model: "text-davinci-003",
-            prompt: `GPTGenius: Your AI language companion. Powered by OpenAI, it enhances your conversations, content creation, and more!\n\nUser: ${chatMessage}\nGPTGenius:`,
-            temperature: 0.9,
-            max_tokens: 150,
-            top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0.6,
-            stop: ["\n"],
-        }),
+import OpenAI from "openai";
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+export const generateChatResponse = async (chatMessages) => {
+  try {
+    const response = await openai.chat.completions.create({
+      messages: [{ role: "system", content: "You are a helpful assistant." }, ...chatMessages],
+      model: "gpt-3.5-turbo-0125",
+      temperature: 0.8,
     });
-    const data = await response.json();
-    return data.choices[0].text;
-}
+    console.log(response);
+    const { message } = response.choices[0];
+    console.log(message);
+    return message;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
