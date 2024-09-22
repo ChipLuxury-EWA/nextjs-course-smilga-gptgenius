@@ -1,6 +1,6 @@
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Toaster } from "react-hot-toast";
+import Providers from "./providers";
 
 export const metadata = {
   title: "GPTGenius",
@@ -11,12 +11,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <ClerkProvider>
-        <body>
-          {children}
-          <Toaster position="bottom-right" />
-        </body>
-      </ClerkProvider>
+      <body>
+        <ClerkProvider>
+          <Providers>{children}</Providers>
+        </ClerkProvider>
+      </body>
     </html>
   );
 }
