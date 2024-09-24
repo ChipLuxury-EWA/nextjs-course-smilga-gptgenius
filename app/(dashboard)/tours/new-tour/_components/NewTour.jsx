@@ -10,7 +10,7 @@ const NewTour = () => {
   const {
     mutate,
     isPending,
-    data: tour,
+    data: tourData,
   } = useMutation({
     mutationFn: async (destination) => {
       const newTour = await generateTourResponse(destination);
@@ -35,17 +35,19 @@ const NewTour = () => {
 
   return (
     <>
-      <form className="max-w-2xl" onSubmit={handleSubmit}>
+      <form className="max-w-full" onSubmit={handleSubmit}>
         <h2 className="mb-4">Select your dream destination:</h2>
         <div className="join w-full">
           <input className="input input-bordered join-item w-full" placeholder="country" name="country" type="text" required />
           <input className="input input-bordered join-item w-full" placeholder="city" name="city" type="text" required />
+          <input className="input input-bordered join-item w-full" placeholder="days" name="daysAmount" type="number" min={1} max={30} />
+          <input className="input input-bordered join-item w-full" placeholder="attractions" name="attractionsAmount" type="number" min={1} max={30} />
           <button className="btn btn-primary join-item min-w-24" disabled={isPending} type="submit">
             {isPending ? <div className="loading loading-dots" /> : "Generate tour"}
           </button>
         </div>
       </form>
-      <div className="mt-16">{tour ? <TourInfo tour={tour} /> : null}</div>
+      <div className="mt-16">{tourData ? <TourInfo tourData={tourData} /> : null}</div>
     </>
   );
 };
