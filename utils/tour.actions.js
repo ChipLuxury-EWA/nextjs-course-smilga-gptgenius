@@ -2,6 +2,7 @@
 
 import OpenAI from "openai";
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import prisma from "./db";
 
 const buildPromptHelper = ({ city, country, daysAmount, attractionsAmount }) => {
   return `Find the city ${city} in this country ${country}.
@@ -22,9 +23,9 @@ const buildPromptHelper = ({ city, country, daysAmount, attractionsAmount }) => 
   If you can't find info on exact ${city}, or ${city} does not exist, or it's population is less than 1, or it is not located in the following ${country} return { "tour": null }, with no additional characters.`;
 };
 
-export const getExistingTours = async ({ city, country }) => {
-  const tours = await prisma.tour.findMany({ where: { city, country } });
-  return tours;
+export const getExistingTour = async ({ city, country }) => {
+  const tour = prisma.tour.findUnique({ where: { city_country: { city, country } } });
+  return tour;
 };
 
 export const generateTourResponse = async ({ city, country, daysAmount, attractionsAmount }) => {
@@ -51,6 +52,7 @@ export const generateTourResponse = async ({ city, country, daysAmount, attracti
 };
 
 export const createNewTour = async (tour) => {
+  console.log(tour)
   try {
     const response = await prisma.tour.create({ data: tour });
     return response;
