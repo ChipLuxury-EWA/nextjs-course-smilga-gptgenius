@@ -4,7 +4,6 @@ import TourInfo from "./TourInfo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNewTour, getExistingTour, generateTourResponse } from "@/utils/tour.actions";
 import toast from "react-hot-toast";
-import { FaF } from "react-icons/fa6";
 
 const NewTour = () => {
   const queryClient = useQueryClient();
