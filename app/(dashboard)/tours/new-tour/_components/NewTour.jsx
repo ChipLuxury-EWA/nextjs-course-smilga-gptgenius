@@ -34,6 +34,8 @@ const NewTour = () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const destination = Object.fromEntries(formData.entries());
+    // TODO solve the bug case if user entering lowercase values .charAt(0).toUpperCase()
+    console.log(destination);
     mutate(destination);
   };
 
