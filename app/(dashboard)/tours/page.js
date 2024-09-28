@@ -4,7 +4,7 @@ import { getAllTours } from "@/utils/tour.actions";
 
 const AllToursPage = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({ queryKey: ["tours"], queryFn: getAllTours });
+  await queryClient.prefetchQuery({ queryKey: ["tours", ""], queryFn: getAllTours });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
