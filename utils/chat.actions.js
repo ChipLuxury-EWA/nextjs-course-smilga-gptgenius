@@ -9,6 +9,7 @@ export const generateChatResponse = async (chatMessages) => {
       messages: [{ role: "system", content: "You are a helpful assistant." }, ...chatMessages],
       model: "gpt-3.5-turbo-0125",
       temperature: 0.8,
+      max_tokens: 100,
     });
     const { message } = response.choices[0];
     return message;
