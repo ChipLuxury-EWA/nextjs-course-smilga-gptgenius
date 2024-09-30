@@ -44,7 +44,9 @@ export const generateTourResponse = async ({ city, country, daysAmount, attracti
       return null;
     }
 
-    return tourData.tour;
+    const { tour } = tourData;
+    const usedTokens = response.usage.total_tokens;
+    return { tour, usedTokens };
   } catch (error) {
     console.error(error);
     return null;
@@ -52,7 +54,7 @@ export const generateTourResponse = async ({ city, country, daysAmount, attracti
 };
 
 export const createNewTour = async (tour) => {
-  console.log(tour);
+  console.log("----------- New Tour created: -----------\n", tour);
   try {
     const response = await prisma.tour.create({ data: tour });
     return response;

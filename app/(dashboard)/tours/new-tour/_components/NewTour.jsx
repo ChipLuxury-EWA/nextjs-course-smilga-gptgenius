@@ -4,8 +4,11 @@ import TourInfo from "./TourInfo";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNewTour, getExistingTour, generateTourResponse } from "@/utils/tour.actions";
 import toast from "react-hot-toast";
+import { useAuth } from "@clerk/nextjs";
+import { fetchUserTokenById, subtractTokens } from "@/utils/token.actions";
 
 const NewTour = () => {
+  const { userId } = useAuth();
   const queryClient = useQueryClient();
   const {
     mutate,
@@ -15,10 +18,18 @@ const NewTour = () => {
     mutationFn: async (destination) => {
       const existingTour = await getExistingTour(destination);
       if (existingTour) return existingTour;
-      const newTour = await generateTourResponse(destination);
+      //checking if user have enough tokens:
+      const currentUserTokens = await fetchUserTokenById(userId);
+      if (currentUserTokens < 300) {
+        toast.error("Not enough tokens");
+        return null;
+      }
+      const { tour: newTour, usedTokens } = await generateTourResponse(destination);
       if (newTour) {
         await createNewTour(newTour);
         queryClient.invalidateQueries({ queryKey: ["tours"] });
+        const newTokens = await subtractTokens(userId, usedTokens);
+        toast.success(`Tour created successfully. You have ${newTokens} tokens left.`);
         return newTour;
       } else {
         toast.error(`No matching city found for ${destination.city}...`);
@@ -35,7 +46,7 @@ const NewTour = () => {
     const formData = new FormData(event.currentTarget);
     const destination = Object.fromEntries(formData.entries());
     // TODO solve the bug case if user entering lowercase values .charAt(0).toUpperCase()
-    console.log(destination);
+    // console.log(destination);
     mutate(destination);
   };
 
