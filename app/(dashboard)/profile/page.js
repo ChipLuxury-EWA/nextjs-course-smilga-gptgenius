@@ -8,7 +8,7 @@ const ProfilePage = async () => {
   return (
     <>
       <div className="badge badge-primary badge-lg mb-4">Token amount: {currentTokens}</div>
-      <UserProfile routing="hash" />;
+      <UserProfile routing="hash" />
     </>
   );
 };
