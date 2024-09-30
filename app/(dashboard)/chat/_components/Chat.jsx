@@ -1,18 +1,30 @@
 "use client";
 import { generateChatResponse } from "@/utils/chat.actions";
+import { fetchUserTokenById, subtractTokens } from "@/utils/token.actions";
+import { useAuth } from "@clerk/nextjs";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 const Chat = () => {
+  const { userId } = useAuth();
   const [text, setText] = useState("");
   const [messages, setMessages] = useState([]);
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (query) => generateChatResponse([...messages, query]),
-    onSuccess: (data) => {
-      if (data) {
-        setMessages((prev) => [...prev, data]);
+    mutationFn: async (query) => {
+      const currentUserTokens = await fetchUserTokenById(userId);
+      if (currentUserTokens < 100) {
+        toast.error("Not enough tokens");
+        return null;
+      }
+      const response = await generateChatResponse([...messages, query]);
+      if (response) {
+        const { message, usedTokens } = response;
+        setMessages((prev) => [...prev, message]);
+        const newTokens = await subtractTokens(userId, usedTokens);
+        console.log(newTokens);
+        toast.success(`You have ${newTokens} tokens left.`);
       } else {
         toast.error("Something went wrong. Please try again later.");
       }

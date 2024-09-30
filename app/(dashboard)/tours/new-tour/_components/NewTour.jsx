@@ -19,8 +19,9 @@ const NewTour = () => {
       const existingTour = await getExistingTour(destination);
       if (existingTour) return existingTour;
       //checking if user have enough tokens:
+      // TODO: move checking user tokens amount to separate util.
       const currentUserTokens = await fetchUserTokenById(userId);
-      if (currentUserTokens < 300) {
+      if (currentUserTokens < 100) {
         toast.error("Not enough tokens");
         return null;
       }

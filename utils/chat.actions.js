@@ -12,7 +12,8 @@ export const generateChatResponse = async (chatMessages) => {
       max_tokens: 100,
     });
     const { message } = response.choices[0];
-    return message;
+    const usedTokens = response.usage.total_tokens;
+    return { message, usedTokens };
   } catch (error) {
     console.error(error);
     return null;
