@@ -37,9 +37,9 @@ const NewTour = () => {
         return null;
       }
     },
-    onSuccess: (data) => {
-      console.log(data);
-    },
+    // onSuccess: (data) => {
+    //   console.log(data);
+    // },
   });
 
   const handleSubmit = (event) => {
@@ -55,7 +55,7 @@ const NewTour = () => {
     <>
       <form className="max-w-full" onSubmit={handleSubmit}>
         <h2 className="mb-4">Select your dream destination:</h2>
-        <div className="join w-full">
+        <div className="join join-vertical w-full md:join-horizontal">
           <input className="input input-bordered join-item w-full" placeholder="country" name="country" type="text" required />
           <input className="input input-bordered join-item w-full" placeholder="city" name="city" type="text" required />
           <input
