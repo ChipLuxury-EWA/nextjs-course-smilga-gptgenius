@@ -6,9 +6,9 @@ export default function Home() {
       <div className="hero-content text-center">
         <div className="max-w-3xl">
           <h1 className="text-6xl font-bold text-primary">Trip-AI</h1>
-          <p className="py-6 text-lg leading-loose">
+          <p className="py-6 text-xs leading-none sm:text-lg sm:leading-loose">
             Your AI travel companion, powered by OpenAI, designed to simplify your trip planning! <br/>
-            Just select a country and city, specify the number of days and attractions you'd like, <br/>
+            Select a country and city, specify the number of days and attractions you'd like, <br/>
             and receive a curated list of must-visit places and activities. <br/>
             Plus, you'll get an estimated cost for the attractions!
           </p>
