@@ -3,9 +3,10 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Providers from "./providers";
 
 export const metadata = {
-  title: "GPTGenius",
-  description:
-    "GPTGenius: Your AI language companion. Powered by OpenAI, it enhances your conversations, content creation, and more!",
+  title: "TRIP-AI",
+  description: `Trip-AI: Your AI travel companion, powered by OpenAI, designed to simplify your trip planning!
+    Just select a country and city, specify the number of days and attractions you'd like, and receive a curated list of must-visit places and activities.
+    Plus, you'll get an estimated cost for the attractions!`,
 };
 
 export default function RootLayout({ children }) {

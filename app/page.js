@@ -4,13 +4,16 @@ export default function Home() {
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content text-center">
-        <div className="max-w-md">
-          <h1 className="text-6xl font-bold text-primary">GPTgenius</h1>
+        <div className="max-w-3xl">
+          <h1 className="text-6xl font-bold text-primary">Trip-AI</h1>
           <p className="py-6 text-lg leading-loose">
-            GPTGenius: Your AI language companion. Powered by OpenAI, it enhances your conversations, content creation, and more!
+            Your AI travel companion, powered by OpenAI, designed to simplify your trip planning! <br/>
+            Just select a country and city, specify the number of days and attractions you'd like, <br/>
+            and receive a curated list of must-visit places and activities. <br/>
+            Plus, you'll get an estimated cost for the attractions!
           </p>
-          <Link href="/chat" className="btn btn-secondary" >
-            Get Started
+          <Link href="/tours/new-tour" className="btn btn-secondary">
+            Plan Trip
           </Link>
         </div>
       </div>
